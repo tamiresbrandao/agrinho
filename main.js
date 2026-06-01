@@ -1,9 +1,6 @@
-let contador = 0;
-
-const visitas = document.getElementById("visitas");
-const botao = document.getElementById("btn");
+const botao = document.getElementById("botao");
+const mensagem = document.getElementById("mensagem");
 
 botao.addEventListener("click", () => {
-    contador++;
-    visitas.textContent = contador;
+    mensagem.textContent = "🌾 O campo e a cidade trabalham juntos!";
 });
