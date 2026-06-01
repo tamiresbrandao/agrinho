@@ -1,6 +1,7 @@
-const botao = document.getElementById("botao");
+const btn = document.getElementById("btn");
 const mensagem = document.getElementById("mensagem");
 
-botao.addEventListener("click", () => {
-    mensagem.textContent = "🌾 O campo e a cidade trabalham juntos!";
+btn.addEventListener("click", () => {
+    mensagem.innerHTML =
+    "🌱 A união entre campo e cidade fortalece a economia, promove sustentabilidade e melhora a qualidade de vida de todos.";
 });
