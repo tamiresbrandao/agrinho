@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conexão Campo e Cidade</title>
+    <style>
+        /* --- ESTILOS (CSS) --- */
+        :root {
+            --cor-campo: #2ecc71;
+            --cor-cidade: #34495e;
+            --cor-alerta: #e74c3c;
+            --cor-fundo: #f4f6f7;
+            --cor-texto: #2c3e50;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--cor-campo) 50%, var(--cor-cidade) 50%);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+            margin-bottom: 10px;
+        }
+
+        header p {
+            background: rgba(0,0,0,0.2);
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        section {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            color: var(--cor-cidade);
+            border-bottom: 3px solid var(--cor-campo);
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+        }
+
+        /* Grid dinâmico para Atores e Eventos */
+        .grid-dinamico {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: #fafbfc;
+            border-left: 5px solid var(--cor-campo);
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+            color: var(--cor-cidade);
+        }
+
+        /* Seção do Simulador Interativo */
+        .painel-simulador {
+            background: #eef9f2;
+            border: 2px dashed var(--cor-campo);
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .grupo-botoes {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            background-color: var(--cor-cidade);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background-color: var(--cor-campo);
+        }
+
+        .caixa-log {
+            background: white;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            min-height: 80px;
+        }
+
+        footer {
+            background-color: var(--cor-cidade);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Festejando a Conexão: Campo e Cidade</h1>
+        <p>Objetivo: Promover o desenvolvimento sustentável integrando produtores rurais e consumidores urbanos</p>
+    </header>
+
+    <div class="container">
+
+        <section>
+            <h2>Atores do Ecossistema</h2>
+            <p>Mapeamento dos agentes que dão vida à conexão entre o campo e a cidade:</p>
+            <div id="container-atores" class="grid-dinamico"></div>
+        </section>
+
+        <section>
+            <h2>Alinhamento Estratégico: Eventos & Ações</h2>
+            <p>Ações práticas planejadas de forma alinhada aos objetivos do festival:</p>
+            <div id="container-eventos" class="grid-dinamico"></div>
+        </section>
+
+        <section>
+            <h2>Simulador de Transmissão de Mensagens e Fluxos</h2>
+            <p>Interaja abaixo para acionar os operadores lógicos e testar os fluxos de dados do festival:</p>
+            
+            <div class="painel-simulador">
+                <div class="grupo-botoes">
+                    <button class="btn" onclick="processarFluxo('Comercial')">Fluxo Comercial</button>
+                    <button class="btn" onclick="processarFluxo('Educacional')">Fluxo Educacional</button>
+                    <button class="btn" onclick="processarFluxo('Invalido')">Simular Erro de Fluxo</button>
+                </div>
+
+                <div class="caixa-log">
+                    <div id="log-saida"><em>Selecione um fluxo acima para simular a transmissão da mensagem.</em></div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>© 2026 Conexão Campo e Cidade - Código limpo e estruturado.</p>
+    </footer>
+
+    <script>
+        // 1. NOMENCLATURA CLARA E SIGNIFICATIVA / LISTAS (ARRAYS)
+        // Lista contendo os objetos dos atores mapeados na documentação
+        const listaAtoresProjeto = [
+            {
+                nomeAtor: "🌾 Produtor Rural",
+                descricaoPapel: "Responsável pelo cultivo sustentável, colheita e envio dos alimentos e tradições para a cidade."
+            },
+            {
+                nomeAtor: "🏙️ Cidadão Urbano",
+                descricaoPapel: "O consumidor final que busca alimentos saudáveis e apoia diretamente a economia camponesa."
+            },
+            {
+                nomeAtor: "🤝 Comitê Mediador",
+                descricaoPapel: "Responsável pela infraestrutura logística, comunicação e organização dos eventos de integração."
+            }
+        ];
+
+        // Lista contendo o perfeito alinhamento entre Evento e Ação programada
+        const listaEventosAlinhados = [
+            {
+                nomeEvento: "Feira da Terra à Mesa",
+                acaoPratica: "Ação: Venda direta programada eliminando intermediários, aumentando a margem do produtor e reduzindo o custo urbano."
+            },
+            {
+                nomeEvento: "Circuito Vivência Verde",
+                acaoPratica: "Ação: Transporte de famílias da cidade para passar o fim de semana aprendendo sobre agroecologia nas fazendas."
+            },
+            {
+                nomeEvento: "Painel Conexão Tech",
+                acaoPratica: "Ação: Engenheiros da cidade implementando automação de baixo custo para irrigação no campo."
+            }
+        ];
+
+        // 2. LAÇOS DE REPETIÇÃO (Evitando blocos redundantes no HTML)
+        // Função responsável por renderizar os cards de atores usando laço forEach
+        function renderizarAtores() {
+            const containerAtores = document.getElementById("container-atores");
+            
+            listaAtoresProjeto.forEach(ator => {
+                // Criação dinâmica do bloco de elemento para cada ator da lista
+                const cardAtor = document.createElement("div");
+                cardAtor.className = "card";
+                cardAtor.innerHTML = `<h3>${ator.nomeAtor}</h3><p>${ator.descricaoPapel}</p>`;
+                containerAtores.appendChild(cardAtor);
+            });
+        }
+
+        // Função responsável por renderizar os cards de eventos usando laço forEach
+        function renderizarEventos() {
+            const containerEventos = document.getElementById("container-eventos");
+
+            listaEventosAlinhados.forEach(evento => {
+                // Criação dinâmica reaproveitando a mesma estrutura lógica
+                const cardEvento = document.createElement("div");
+                cardEvento.className = "card";
+                cardEvento.style.borderLeftColor = "var(--cor-cidade)";
+                cardEvento.innerHTML = `<h3>${evento.nomeEvento}</h3><p><strong>${evento.acaoPratica}</strong></p>`;
+                containerEventos.appendChild(cardEvento);
+            });
+        }
+
+        // 3. VARIÁVEIS, OPERADORES LÓGICOS E TRANSMISSÃO DE MENSAGENS
+        // Função que simula o barramento de mensagens e valida os fluxos usando lógica boolena
+        function processarFluxo(tipoFluxo) {
+            const displayLog = document.getElementById("log-saida");
+            
+            // Variáveis locais explícitas
+            let mensagemTransmitida = "";
+            let statusSucesso = false;
+
+            // Uso de Operadores Lógicos e Condicionais para validação do fluxo do sistema
+            if (tipoFluxo === "Comercial" || tipoFluxo === "Educacional") {
+                statusSucesso = true; 
+            }
+
+            // Tratamento da transmissão com base no operador lógico de negação (!)
+            if (!statusSucesso) {
+                mensagemTransmitida = `❌ <strong>[ERRO DE TRANSMISSÃO]:</strong> O fluxo requisitado "${tipoFluxo}" é inválido ou não foi mapeado na documentação do projeto.`;
+                displayLog.style.color = "var(--cor-alerta)";
+            } else {
+                // Construção das mensagens específicas baseadas no fluxo ativo
+                if (tipoFluxo === "Comercial") {
+                    mensagemTransmitida = `🛰️ <strong>[MENSAGEM TRANSMITIDA]:</strong> Produtor enviou a listagem de estoque ➔ Mediador validou a logística ➔ Consumidor Urbano realizou o pagamento via app.`;
+                } else if (tipoFluxo === "Educacional") {
+                    mensagemTransmitida = `🛰️ <strong>[MENSAGEM TRANSMITIDA]:</strong> Mediador abriu vagas de inscrição ➔ Escolas da cidade confirmaram presença ➔ Campo preparou as oficinas de plantio.`;
+                }
+                displayLog.style.color = "var(--cor-texto)";
+            }
+
+            // Atualização da interface do usuário (Saída do processamento)
+            displayLog.innerHTML = mensagemTransmitida;
+        }
+
+        // Inicialização automática das funções assim que a página é carregada
+        window.onload = function() {
+            renderizarAtores();
+            renderizarEventos();
+        };
+    </script>
+</body>
+</html>
